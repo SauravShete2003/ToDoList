@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <style>
+        body {
+            background-image: linear-gradient(to right, #868f96 0%, #596164 100%);
+            height: 92.8vh;
+        }
+
+        .input-box {
+            width: 300px;
+            padding: 10px 30px;
+            border: 2px solid black;
+            border-radius: 30px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .button {
+            padding: 10px;
+            border-radius: 8px;
+            background-color: white;
+            font-size: 15px;
+            width: 70px;
+            display: block;
+            margin: 0 auto;
+            margin-top: 10px;
+        }
+
+        .action-container {
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .todo-item {
+            background-color: white;
+            width: 500px;
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 20px;
+        }
+
+        .list-container {
+            border-radius: 20px;
+            width: 600px;
+            display: block;
+            margin: 30px auto;
+            height: 300px;
+            overflow-y: hidden;
+            background: #C9CCD3;
+            background-image: linear-gradient(-180deg, rgba(255, 255, 255, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%);
+            background-blend-mode: lighten;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="list-container" id="list-container">
+        <div class="todo-item">Task 1</div>
+        <div class="todo-item">Task 1</div>
+        <div class="todo-item">Task 1</div>
+
+    </div>
+    <div class="action-container">
+        <input type="text" class="input-box" id="input-todo">
+        <button onclick="add()" class="button">add</button>
+    </div>
+
+    <script>
+        let todoList = [];
+        
+        const listFromLocalStorage = localStorage.getItem("todoList");
+        if(listFromLocalStorage){
+            todoList = JSON.parse(listFromLocalStorage);
+        }
+        renderToDoList();
+        function add() {
+            const inputElement = document.getElementById("input-todo");
+            todoList.push(inputElement.value);
+            localStorage.setItem("todoList",JSON.stringify(todoList));
+            inputElement.value = "";
+            renderToDoList();
+
+        }
+
+        function renderToDoList() {
+            const listContainer = document.getElementById("list-container");
+            listContainer.innerHTML = "";
+
+            for (const todoItem of todoList) {
+                listContainer.innerHTML += `<div class="todo-item">
+               
+                ${todoItem} 
+                
+                </div>`
+            }
+        }
+    </script>
+</body>
+
+</html>
